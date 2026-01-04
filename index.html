@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Aşkım çok seviyo</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+body{
+  margin:0;
+  height:100vh;
+  overflow:hidden;
+  font-family:'Baloo 2', cursive;
+  background:linear-gradient(#00c6ff,#0072ff);
+  color:#fff;
+}
+.screen{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  transition:.6s cubic-bezier(.22,1,.36,1);
+}
+h1{font-size:3em;margin-bottom:10px}
+.card{
+  background:rgba(255,255,255,.2);
+  border-radius:30px;
+  padding:30px;
+  max-width:340px;
+  box-shadow:0 20px 40px rgba(0,0,0,.3);
+}
+button{
+  background:#ffe066;
+  border:none;
+  border-radius:999px;
+  padding:14px 36px;
+  margin-top:20px;
+  font-size:1.1em;
+  cursor:pointer;
+}
+.hidden{transform:translateX(100%)}
+#gallery img{
+  width:90px;
+  height:90px;
+  object-fit:cover;
+  border-radius:16px;
+  margin:6px;
+  border:3px solid #fff;
+}
+.bubble{
+  position:absolute;
+  bottom:-40px;
+  width:14px;height:14px;
+  background:rgba(255,255,255,.6);
+  border-radius:50%;
+  animation:float 9s infinite ease-in;
+}
+@keyframes float{
+  to{transform:translateY(-120vh);opacity:0}
+}
+</style>
+</head>
+<body>
+
+<!-- 🎵 ARKA PLAN MÜZİĞİ -->
+<audio id="bgm" src="sünger.mp3" loop></audio>
+
+<div id="s1" class="screen">
+  <div class="card">
+    <h1>Prensesimmmmm sana bir mesaj var🧽💛</h1>
+    <p>Sağa kaydır… Bikini Bottom’da sürpriz var 🌊</p>
+  </div>
+</div>
+
+<div id="s2" class="screen hidden">
+  <div class="card">
+    <h1>🐙 Patrick Konuşuyor</h1>
+    <p>
+      Sana olan sevgim denizin en derin yerinden bile daha derinmiş…  
+      <br><br>
+      <strong>Seni çok seviyorum bal yanaklımm 💕</strong>
+    </p>
+    <button onclick="next()">Fotoğraflarımıza Bak 📸</button>
+  </div>
+</div>
+
+<div id="s3" class="screen hidden">
+  <div class="card">
+    <h1>Bikini Bottom Hatıralarımız</h1>
+    <div id="gallery">
+      <img src="foto1.JPG">
+      <img src="foto2.JPG">
+      <img src="foto3.JPG">
+      <img src="foto4.JPG">
+    </div>
+    <p>Bu fotoğrafların hepsi kalbimde ayrı 🥹</p>
+  </div>
+</div>
+
+<script>
+let current=1;
+const music=document.getElementById("bgm");
+
+// Kullanıcı ilk dokunduğunda müzik başlasın (mobil engeli için)
+document.body.addEventListener("click",()=>music.play(),{once:true});
+document.body.addEventListener("touchstart",()=>music.play(),{once:true});
+
+function next(){
+  document.getElementById("s2").classList.add("hidden");
+  document.getElementById("s3").classList.remove("hidden");
+}
+
+let startX=0;
+document.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
+document.addEventListener("touchend",e=>{
+  let diff=e.changedTouches[0].clientX-startX;
+  if(diff<-60 && current===1){
+    document.getElementById("s1").classList.add("hidden");
+    document.getElementById("s2").classList.remove("hidden");
+    current=2;
+  }
+});
+
+function bubble(){
+  const b=document.createElement("div");
+  b.className="bubble";
+  b.style.left=Math.random()*100+"vw";
+  document.body.appendChild(b);
+  setTimeout(()=>b.remove(),9000);
+}
+setInterval(bubble,500);
+</script>
+
+</body>
+</html>

@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Aşkım çok seviyo</title>
+<title>Şevval & Bikini Bottom 💛</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 body{
@@ -60,16 +60,34 @@ button{
 @keyframes float{
   to{transform:translateY(-120vh);opacity:0}
 }
+#lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.9);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:99;
+}
+#lightbox img{
+  max-width:90%;
+  max-height:90%;
+  border-radius:20px;
+  animation:zoom .4s ease;
+}
+@keyframes zoom{
+  from{transform:scale(.5);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
 </style>
 </head>
 <body>
 
-<!-- 🎵 ARKA PLAN MÜZİĞİ -->
 <audio id="bgm" src="sünger.mp3" loop></audio>
 
 <div id="s1" class="screen">
   <div class="card">
-    <h1>Prensesimmmmm sana bir mesaj var🧽💛</h1>
+    <h1>Merhaba Şevval 🧽💛</h1>
     <p>Sağa kaydır… Bikini Bottom’da sürpriz var 🌊</p>
   </div>
 </div>
@@ -78,9 +96,9 @@ button{
   <div class="card">
     <h1>🐙 Patrick Konuşuyor</h1>
     <p>
-      Sana olan sevgim denizin en derin yerinden bile daha derinmiş…  
+      Aşk denizin en derin yerinden bile daha derinmiş…  
       <br><br>
-      <strong>Seni çok seviyorum bal yanaklımm 💕</strong>
+      <strong>Seni çok seviyorum Şevval 💕</strong>
     </p>
     <button onclick="next()">Fotoğraflarımıza Bak 📸</button>
   </div>
@@ -90,20 +108,22 @@ button{
   <div class="card">
     <h1>Bikini Bottom Hatıralarımız</h1>
     <div id="gallery">
-      <img src="foto1.JPG">
-      <img src="foto2.JPG">
-      <img src="foto3.JPG">
-      <img src="foto4.JPG">
+      <img src="foto1.jpg">
+      <img src="foto2.jpg">
+      <img src="foto3.jpg">
+      <img src="foto4.jpg">
     </div>
     <p>Bu fotoğrafların hepsi kalbimde ayrı 🥹</p>
   </div>
 </div>
 
+<div id="lightbox" onclick="this.style.display='none'">
+  <img id="lightImg">
+</div>
+
 <script>
 let current=1;
 const music=document.getElementById("bgm");
-
-// Kullanıcı ilk dokunduğunda müzik başlasın (mobil engeli için)
 document.body.addEventListener("click",()=>music.play(),{once:true});
 document.body.addEventListener("touchstart",()=>music.play(),{once:true});
 
@@ -131,6 +151,13 @@ function bubble(){
   setTimeout(()=>b.remove(),9000);
 }
 setInterval(bubble,500);
+
+document.querySelectorAll("#gallery img").forEach(img=>{
+  img.onclick=()=>{
+    document.getElementById("lightbox").style.display="flex";
+    document.getElementById("lightImg").src=img.src;
+  }
+});
 </script>
 
 </body>
